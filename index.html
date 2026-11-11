@@ -205,6 +205,26 @@ h1, h2, h3 { font-family: var(--display); font-weight: 600; text-wrap: balance; 
 .chip.c1 { top: 10%; left: 0; }
 .chip.c2 { top: 44%; right: 0; animation-delay: -1.6s; }
 .chip.c3 { bottom: 8%; left: 8%; animation-delay: -3.2s; }
+/* ---------- Playable hero: drop the loose block into the dashed slot ---------- */
+.stage svg { touch-action: pan-y; }
+.stage.playable .cube { cursor: pointer; }
+.stage.playable .cube.loose { cursor: grab; }
+.stage .cube.loose.dragging { cursor: grabbing; filter: drop-shadow(0 10px 10px rgba(0, 0, 0, .35)); }
+.stage .cube.loose:not(.dragging):not(.placed) .t { animation: nudge 2.4s ease-in-out 2.2s infinite; }
+@keyframes nudge { 0%, 100% { opacity: 1; } 50% { opacity: .72; } }
+.stage .ghost { transition: opacity .3s ease; }
+.stage .ghost.near polygon { stroke: var(--accent-2); stroke-width: 2; }
+.stage.built .ghost { opacity: 0; }
+.stage.built .chip { border-color: color-mix(in srgb, var(--accent) 60%, var(--line)); }
+.stage .chip.c3 { transition: opacity .3s ease; }
+.stage.built .chip.c3 { opacity: 0; }
+.play-btn { position: absolute; right: 0; bottom: 0; display: inline-flex; align-items: center; gap: 8px; font: 500 13px var(--body); color: var(--fg); background: var(--glass); border: 1px dashed color-mix(in srgb, var(--accent) 55%, var(--line)); border-radius: 999px; padding: 7px 12px; cursor: pointer; transition: border-color .2s ease, background .2s ease; }
+.play-btn::before { content: ""; width: 8px; height: 8px; border-radius: 2px; background: var(--accent-2); transform: rotate(45deg); }
+.play-btn:hover { border-style: solid; border-color: var(--accent); }
+.play-done { position: absolute; left: 50%; bottom: 46px; transform: translateX(-50%); width: max-content; max-width: min(100%, 360px); margin: 0; padding: 10px 14px; border-radius: 12px; background: var(--glass); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border: 1px solid color-mix(in srgb, var(--accent) 50%, var(--line)); box-shadow: 0 18px 40px -20px var(--accent); font-size: 14px; text-align: center; animation: toast-in .35s ease both; }
+@keyframes toast-in { from { opacity: 0; transform: translate(-50%, 8px); } to { opacity: 1; transform: translate(-50%, 0); } }
+.play-done a { font-weight: 600; text-decoration: none; margin-left: 4px; }
+@media (max-width: 520px) { .play-done { bottom: 52px; font-size: 13px; } .play-btn { font-size: 12px; } }
 @keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
 
 /* Stats strip */
@@ -541,11 +561,13 @@ footer p { flex-basis: 100%; }
       </div>
       <p class="etym"><b>tek·va·ra</b><i>τέκτων + वर</i><span>Greek for builder, Sanskrit for excellent.</span></p>
     </div>
-    <div class="stage" aria-hidden="true" data-live>
-      <svg viewBox="-192 -206 332 336" role="presentation"><g class="floor"><line x1="-52.0" y1="-60.0" x2="-182.0" y2="15.0"/><line x1="-26.0" y1="-45.0" x2="-156.0" y2="30.0"/><line x1="0.0" y1="-30.0" x2="-130.0" y2="45.0"/><line x1="26.0" y1="-15.0" x2="-104.0" y2="60.0"/><line x1="52.0" y1="0.0" x2="-78.0" y2="75.0"/><line x1="78.0" y1="15.0" x2="-52.0" y2="90.0"/><line x1="104.0" y1="30.0" x2="-26.0" y2="105.0"/><line x1="130.0" y1="45.0" x2="0.0" y2="120.0"/><line x1="-52.0" y1="-60.0" x2="130.0" y2="45.0"/><line x1="-78.0" y1="-45.0" x2="104.0" y2="60.0"/><line x1="-104.0" y1="-30.0" x2="78.0" y2="75.0"/><line x1="-130.0" y1="-15.0" x2="52.0" y2="90.0"/><line x1="-156.0" y1="0.0" x2="26.0" y2="105.0"/><line x1="-182.0" y1="15.0" x2="0.0" y2="120.0"/></g><ellipse class="shadow" cx="-26.0" cy="30.0" rx="120" ry="46"/><g class="build"><g class="cube" style="--d:1.09s"><polygon class="t" points="-52.0,-150.0 -26.0,-135.0 -52.0,-120.0 -78.0,-135.0"/><polygon class="l" points="-78.0,-135.0 -52.0,-120.0 -52.0,-90.0 -78.0,-105.0"/><polygon class="r" points="-26.0,-135.0 -52.0,-120.0 -52.0,-90.0 -26.0,-105.0"/></g><g class="cube" style="--d:0.97s"><polygon class="t" points="-26.0,-135.0 0.0,-120.0 -26.0,-105.0 -52.0,-120.0"/><polygon class="l" points="-52.0,-120.0 -26.0,-105.0 -26.0,-75.0 -52.0,-90.0"/><polygon class="r" points="0.0,-120.0 -26.0,-105.0 -26.0,-75.0 0.0,-90.0"/></g><g class="cube alt" style="--d:0.00s"><polygon class="t" points="-104.0,-30.0 -78.0,-15.0 -104.0,0.0 -130.0,-15.0"/><polygon class="l" points="-130.0,-15.0 -104.0,0.0 -104.0,30.0 -130.0,15.0"/><polygon class="r" points="-78.0,-15.0 -104.0,0.0 -104.0,30.0 -78.0,15.0"/></g><g class="cube" style="--d:0.35s"><polygon class="t" points="0.0,-30.0 26.0,-15.0 0.0,0.0 -26.0,-15.0"/><polygon class="l" points="-26.0,-15.0 0.0,0.0 0.0,30.0 -26.0,15.0"/><polygon class="r" points="26.0,-15.0 0.0,0.0 0.0,30.0 26.0,15.0"/></g><g class="cube" style="--d:0.50s"><polygon class="t" points="0.0,-60.0 26.0,-45.0 0.0,-30.0 -26.0,-45.0"/><polygon class="l" points="-26.0,-45.0 0.0,-30.0 0.0,0.0 -26.0,-15.0"/><polygon class="r" points="26.0,-45.0 0.0,-30.0 0.0,0.0 26.0,-15.0"/></g><g class="cube" style="--d:0.65s"><polygon class="t" points="0.0,-90.0 26.0,-75.0 0.0,-60.0 -26.0,-75.0"/><polygon class="l" points="-26.0,-75.0 0.0,-60.0 0.0,-30.0 -26.0,-45.0"/><polygon class="r" points="26.0,-75.0 0.0,-60.0 0.0,-30.0 26.0,-45.0"/></g><g class="cube" style="--d:0.85s"><polygon class="t" points="0.0,-120.0 26.0,-105.0 0.0,-90.0 -26.0,-105.0"/><polygon class="l" points="-26.0,-105.0 0.0,-90.0 0.0,-60.0 -26.0,-75.0"/><polygon class="r" points="26.0,-105.0 0.0,-90.0 0.0,-60.0 26.0,-75.0"/></g><g class="cube" style="--d:0.97s"><polygon class="t" points="26.0,-105.0 52.0,-90.0 26.0,-75.0 0.0,-90.0"/><polygon class="l" points="0.0,-90.0 26.0,-75.0 26.0,-45.0 0.0,-60.0"/><polygon class="r" points="52.0,-90.0 26.0,-75.0 26.0,-45.0 52.0,-60.0"/></g><g class="cube" style="--d:1.09s"><polygon class="t" points="52.0,-90.0 78.0,-75.0 52.0,-60.0 26.0,-75.0"/><polygon class="l" points="26.0,-75.0 52.0,-60.0 52.0,-30.0 26.0,-45.0"/><polygon class="r" points="78.0,-75.0 52.0,-60.0 52.0,-30.0 78.0,-45.0"/></g><g class="cube alt" style="--d:0.12s"><polygon class="t" points="0.0,30.0 26.0,45.0 0.0,60.0 -26.0,45.0"/><polygon class="l" points="-26.0,45.0 0.0,60.0 0.0,90.0 -26.0,75.0"/><polygon class="r" points="26.0,45.0 0.0,60.0 0.0,90.0 26.0,75.0"/></g><g class="cube alt" style="--d:0.24s"><polygon class="t" points="26.0,45.0 52.0,60.0 26.0,75.0 0.0,60.0"/><polygon class="l" points="0.0,60.0 26.0,75.0 26.0,105.0 0.0,90.0"/><polygon class="r" points="52.0,60.0 26.0,75.0 26.0,105.0 52.0,90.0"/></g></g><g class="ghost" transform="translate(26 15)"><polygon class="" points="0.0,0.0 26.0,15.0 0.0,30.0 -26.0,15.0"/><polygon class="" points="-26.0,15.0 0.0,30.0 0.0,60.0 -26.0,45.0"/><polygon class="" points="26.0,15.0 0.0,30.0 0.0,60.0 26.0,45.0"/></g></svg>
-      <span class="chip c1"><i></i>UPI payments</span>
-      <span class="chip c2"><i></i>Live slot calendar</span>
-      <span class="chip c3"><i></i>Revenue reports</span>
+    <div class="stage" data-live>
+      <svg viewBox="-192 -206 332 336" role="presentation" aria-hidden="true"><g class="floor"><line x1="-52.0" y1="-60.0" x2="-182.0" y2="15.0"/><line x1="-26.0" y1="-45.0" x2="-156.0" y2="30.0"/><line x1="0.0" y1="-30.0" x2="-130.0" y2="45.0"/><line x1="26.0" y1="-15.0" x2="-104.0" y2="60.0"/><line x1="52.0" y1="0.0" x2="-78.0" y2="75.0"/><line x1="78.0" y1="15.0" x2="-52.0" y2="90.0"/><line x1="104.0" y1="30.0" x2="-26.0" y2="105.0"/><line x1="130.0" y1="45.0" x2="0.0" y2="120.0"/><line x1="-52.0" y1="-60.0" x2="130.0" y2="45.0"/><line x1="-78.0" y1="-45.0" x2="104.0" y2="60.0"/><line x1="-104.0" y1="-30.0" x2="78.0" y2="75.0"/><line x1="-130.0" y1="-15.0" x2="52.0" y2="90.0"/><line x1="-156.0" y1="0.0" x2="26.0" y2="105.0"/><line x1="-182.0" y1="15.0" x2="0.0" y2="120.0"/></g><ellipse class="shadow" cx="-26.0" cy="30.0" rx="120" ry="46"/><g class="build"><g class="cube" style="--d:1.09s"><polygon class="t" points="-52.0,-150.0 -26.0,-135.0 -52.0,-120.0 -78.0,-135.0"/><polygon class="l" points="-78.0,-135.0 -52.0,-120.0 -52.0,-90.0 -78.0,-105.0"/><polygon class="r" points="-26.0,-135.0 -52.0,-120.0 -52.0,-90.0 -26.0,-105.0"/></g><g class="cube" style="--d:0.97s"><polygon class="t" points="-26.0,-135.0 0.0,-120.0 -26.0,-105.0 -52.0,-120.0"/><polygon class="l" points="-52.0,-120.0 -26.0,-105.0 -26.0,-75.0 -52.0,-90.0"/><polygon class="r" points="0.0,-120.0 -26.0,-105.0 -26.0,-75.0 0.0,-90.0"/></g><g class="cube alt" style="--d:0.00s"><polygon class="t" points="-104.0,-30.0 -78.0,-15.0 -104.0,0.0 -130.0,-15.0"/><polygon class="l" points="-130.0,-15.0 -104.0,0.0 -104.0,30.0 -130.0,15.0"/><polygon class="r" points="-78.0,-15.0 -104.0,0.0 -104.0,30.0 -78.0,15.0"/></g><g class="cube" style="--d:0.35s"><polygon class="t" points="0.0,-30.0 26.0,-15.0 0.0,0.0 -26.0,-15.0"/><polygon class="l" points="-26.0,-15.0 0.0,0.0 0.0,30.0 -26.0,15.0"/><polygon class="r" points="26.0,-15.0 0.0,0.0 0.0,30.0 26.0,15.0"/></g><g class="cube" style="--d:0.50s"><polygon class="t" points="0.0,-60.0 26.0,-45.0 0.0,-30.0 -26.0,-45.0"/><polygon class="l" points="-26.0,-45.0 0.0,-30.0 0.0,0.0 -26.0,-15.0"/><polygon class="r" points="26.0,-45.0 0.0,-30.0 0.0,0.0 26.0,-15.0"/></g><g class="cube" style="--d:0.65s"><polygon class="t" points="0.0,-90.0 26.0,-75.0 0.0,-60.0 -26.0,-75.0"/><polygon class="l" points="-26.0,-75.0 0.0,-60.0 0.0,-30.0 -26.0,-45.0"/><polygon class="r" points="26.0,-75.0 0.0,-60.0 0.0,-30.0 26.0,-45.0"/></g><g class="cube" style="--d:0.85s"><polygon class="t" points="0.0,-120.0 26.0,-105.0 0.0,-90.0 -26.0,-105.0"/><polygon class="l" points="-26.0,-105.0 0.0,-90.0 0.0,-60.0 -26.0,-75.0"/><polygon class="r" points="26.0,-105.0 0.0,-90.0 0.0,-60.0 26.0,-75.0"/></g><g class="cube" style="--d:0.97s"><polygon class="t" points="26.0,-105.0 52.0,-90.0 26.0,-75.0 0.0,-90.0"/><polygon class="l" points="0.0,-90.0 26.0,-75.0 26.0,-45.0 0.0,-60.0"/><polygon class="r" points="52.0,-90.0 26.0,-75.0 26.0,-45.0 52.0,-60.0"/></g><g class="cube" style="--d:1.09s"><polygon class="t" points="52.0,-90.0 78.0,-75.0 52.0,-60.0 26.0,-75.0"/><polygon class="l" points="26.0,-75.0 52.0,-60.0 52.0,-30.0 26.0,-45.0"/><polygon class="r" points="78.0,-75.0 52.0,-60.0 52.0,-30.0 78.0,-45.0"/></g><g class="cube alt" style="--d:0.12s"><polygon class="t" points="0.0,30.0 26.0,45.0 0.0,60.0 -26.0,45.0"/><polygon class="l" points="-26.0,45.0 0.0,60.0 0.0,90.0 -26.0,75.0"/><polygon class="r" points="26.0,45.0 0.0,60.0 0.0,90.0 26.0,75.0"/></g><g class="cube alt" style="--d:0.24s"><polygon class="t" points="26.0,45.0 52.0,60.0 26.0,75.0 0.0,60.0"/><polygon class="l" points="0.0,60.0 26.0,75.0 26.0,105.0 0.0,90.0"/><polygon class="r" points="52.0,60.0 26.0,75.0 26.0,105.0 52.0,90.0"/></g></g><g class="ghost" transform="translate(26 15)"><polygon class="" points="0.0,0.0 26.0,15.0 0.0,30.0 -26.0,15.0"/><polygon class="" points="-26.0,15.0 0.0,30.0 0.0,60.0 -26.0,45.0"/><polygon class="" points="26.0,15.0 0.0,30.0 0.0,60.0 26.0,45.0"/></g></svg>
+      <span class="chip c1" aria-hidden="true"><i></i>UPI payments</span>
+      <span class="chip c2" aria-hidden="true"><i></i>Live slot calendar</span>
+      <span class="chip c3" aria-hidden="true"><i></i>Revenue reports</span>
+      <button type="button" class="play-btn" id="play-btn" hidden>Drag the block into the slot</button>
+      <p class="play-done" id="play-done" role="status" hidden><strong>Built!</strong> Now let's build yours. <a href="#estimate">Estimate your cost →</a></p>
     </div>
   </section>
 
@@ -1130,6 +1152,114 @@ footer p { flex-basis: 100%; }
       copyBtn.textContent = 'Selected: press Ctrl+C';
     });
   });
+
+  /* Playable hero: drag the loose block into the dashed slot */
+  (function () {
+    var stage = document.querySelector('.stage');
+    var svg = stage && stage.querySelector('svg');
+    var build = svg && svg.querySelector('.build');
+    var ghost = svg && svg.querySelector('.ghost');
+    var btn = document.getElementById('play-btn');
+    var done = document.getElementById('play-done');
+    if (!build || !ghost || !btn || !svg.getScreenCTM) return;
+    var cubes = Array.prototype.slice.call(build.querySelectorAll('.cube'));
+    function delayOf(c) { return c.style.getPropertyValue('--d').trim(); }
+    var loose = cubes.filter(function (c) { return c.classList.contains('alt') && delayOf(c) === '0.00s'; })[0];
+    var front = cubes.filter(function (c) { return c.classList.contains('alt') && delayOf(c) === '0.12s'; })[0];
+    if (!loose || !front) return;
+    var home = loose.nextSibling;          // original paint order
+    var SLOT = { x: 130, y: 45 };          // offset from the loose block's spot to the dashed slot
+    var SNAP = 34;                         // how close (in drawing units) counts as "in the slot"
+    var placed = false, drag = null;
+    loose.classList.add('loose');
+    stage.classList.add('playable');
+    btn.hidden = false;
+
+    function pt(e) {
+      var m = svg.getScreenCTM().inverse();
+      return { x: m.a * e.clientX + m.c * e.clientY + m.e, y: m.b * e.clientX + m.d * e.clientY + m.f };
+    }
+    function setPos(x, y, animate) {
+      loose.style.transition = animate && !reduce ? 'transform .38s cubic-bezier(.2, .9, .25, 1.15)' : 'none';
+      loose.style.transform = 'translate(' + x + 'px, ' + y + 'px)';
+    }
+    function near(x, y) { return Math.hypot(x - SLOT.x, y - SLOT.y) < SNAP; }
+
+    function place() {
+      placed = true;
+      build.insertBefore(loose, front);    // sit behind the two front blocks
+      void loose.getBoundingClientRect();
+      setPos(SLOT.x, SLOT.y, true);
+      loose.classList.add('placed');
+      ghost.classList.remove('near');
+      stage.classList.add('built');
+      btn.textContent = 'Play again';
+      done.hidden = false;
+      if (!reduce) {
+        cubes.forEach(function (c, i) {
+          c.animate([{ transform: c === loose ? 'translate(130px, 45px)' : 'translateY(0)' },
+                     { transform: c === loose ? 'translate(130px, 33px)' : 'translateY(-12px)' },
+                     { transform: c === loose ? 'translate(130px, 45px)' : 'translateY(0)' }],
+                    { duration: 520, delay: 380 + i * 60, easing: 'cubic-bezier(.3, .7, .4, 1)' });
+        });
+      }
+    }
+    function reset() {
+      placed = false;
+      loose.classList.remove('placed');
+      stage.classList.remove('built');
+      done.hidden = true;
+      btn.textContent = 'Drag the block into the slot';
+      build.insertBefore(loose, home);
+      void loose.getBoundingClientRect();
+      setPos(0, 0, true);
+    }
+
+    loose.addEventListener('pointerdown', function (e) {
+      if (placed || e.button > 0) return;
+      e.preventDefault();
+      var p = pt(e);
+      drag = { id: e.pointerId, sx: p.x, sy: p.y, moved: false };
+      loose.style.animation = 'none';      // drop the intro animation so it doesn't fight the drag
+      build.appendChild(loose);            // carry it above everything while dragging
+      loose.classList.add('dragging');
+      try { loose.setPointerCapture(e.pointerId); } catch (err) {}
+    });
+    loose.addEventListener('pointermove', function (e) {
+      if (!drag || e.pointerId !== drag.id) return;
+      var p = pt(e), dx = p.x - drag.sx, dy = p.y - drag.sy;
+      if (Math.abs(dx) + Math.abs(dy) > 3) drag.moved = true;
+      setPos(dx, dy, false);
+      ghost.classList.toggle('near', near(dx, dy));
+      drag.dx = dx; drag.dy = dy;
+    });
+    function end(e) {
+      if (!drag || e.pointerId !== drag.id) return;
+      var d = drag; drag = null;
+      loose.classList.remove('dragging');
+      if (!d.moved) { build.insertBefore(loose, home); setPos(0, 0, false); return place(); }  // a tap places it too
+      if (near(d.dx || 0, d.dy || 0)) return place();
+      ghost.classList.remove('near');
+      build.insertBefore(loose, home);
+      setPos(0, 0, true);
+    }
+    loose.addEventListener('pointerup', end);
+    loose.addEventListener('pointercancel', end);
+
+    btn.addEventListener('click', function () {
+      if (placed) return reset();
+      loose.style.animation = 'none';
+      place();
+    });
+
+    // Any other block hops when clicked
+    build.addEventListener('click', function (e) {
+      var c = e.target.closest && e.target.closest('.cube');
+      if (!c || c === loose || reduce) return;
+      c.animate([{ transform: 'translateY(0)' }, { transform: 'translateY(-14px)' }, { transform: 'translateY(0)' }],
+                { duration: 460, easing: 'cubic-bezier(.3, .7, .4, 1)' });
+    });
+  })();
 })();
 </script>
 
