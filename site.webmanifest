@@ -1,0 +1,28 @@
+{
+  "name": "Tekton Studio",
+  "short_name": "Tekton",
+  "description": "Tekton Studio designs and builds websites, online stores and custom web apps in Bengaluru. Fixed quotes, transparent prices from ₹4,999, and code you own.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0d0b16",
+  "theme_color": "#5f35e8",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
