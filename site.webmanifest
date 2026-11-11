@@ -1,7 +1,7 @@
 {
-  "name": "Tekton Studio",
-  "short_name": "Tekton",
-  "description": "Tekton Studio designs and builds websites, online stores and custom web apps in Bengaluru. Fixed quotes, transparent prices from ₹4,999, and code you own.",
+  "name": "Tekvara Studio",
+  "short_name": "Tekvara",
+  "description": "Tekvara Studio designs and builds websites, online stores and custom web apps in Bengaluru. SEO-friendly, mobile-first, from ₹4,999 with a fixed quote.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",

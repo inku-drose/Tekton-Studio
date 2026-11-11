@@ -1,6 +1,6 @@
-# Tekton Studio — website
+# Tekvara Studio — website
 
-Static marketing site for Tekton Studio (Bengaluru). Plain HTML/CSS/JS — no build step, no dependencies.
+Static marketing site for Tekvara Studio (Bengaluru). Plain HTML/CSS/JS — no build step, no dependencies.
 
 ## Files
 
