@@ -463,7 +463,10 @@ footer p { flex-basis: 100%; }
 .founder li::before { content: ""; width: 8px; height: 8px; margin-top: 8px; background: linear-gradient(135deg, var(--accent), var(--accent-2)); transform: rotate(45deg); }
 .founder-links { display: flex; gap: 16px; font-weight: 600; font-size: 15px; }
 .founder-links a { text-decoration: none; }
-.founder-photo { display: block; width: 100%; max-width: 360px; height: auto; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 12px; background: #0d0b16; }
+.founder-photo { display: block; width: 100%; max-width: 380px; height: auto; aspect-ratio: 4 / 3; object-fit: cover; margin: 0 auto; border-radius: 14px; }
+/* Dark theme: the photo's dark backdrop matches the card, so dissolve its edges into it */
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .founder-photo { -webkit-mask-image: radial-gradient(closest-side at 50% 46%, #000 58%, transparent 100%); mask-image: radial-gradient(closest-side at 50% 46%, #000 58%, transparent 100%); border-radius: 0; } }
+:root[data-theme="dark"] .founder-photo { -webkit-mask-image: radial-gradient(closest-side at 50% 46%, #000 58%, transparent 100%); mask-image: radial-gradient(closest-side at 50% 46%, #000 58%, transparent 100%); border-radius: 0; }
 .avatar.big { width: 64px; height: 58px; font-size: 20px; }
 .foot-nav { display: flex; flex-wrap: wrap; gap: 8px 18px; font-size: 14px; }
 .foot-nav a { color: var(--muted); text-decoration: none; }
