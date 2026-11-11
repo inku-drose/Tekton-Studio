@@ -24,9 +24,9 @@ Then open http://localhost:8000.
 
 ## Deployment
 
-Live at **https://tekton-studio.onrender.com/** — a Render static site defined by `render.yaml`
+Live at **https://tekvara-studio.onrender.com/** — a Render static site defined by `render.yaml`
 (Blueprint). Every push to `main` redeploys automatically. Security headers come from `render.yaml`.
 
 The canonical URL, Open Graph tags, structured data, `sitemap.xml` and `robots.txt` all use
-`https://tekton-studio.onrender.com/`. If the site ever moves to another address, find and replace
+`https://tekvara-studio.onrender.com/`. If the site ever moves to another address, find and replace
 that URL in `index.html`, `robots.txt` and `sitemap.xml`.

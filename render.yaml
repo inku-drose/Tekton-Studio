@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: tekton-studio
+    name: tekvara-studio
     runtime: static
     buildCommand: ""
     staticPublishPath: .

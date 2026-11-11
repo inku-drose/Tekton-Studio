@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://tekton-studio.onrender.com/sitemap.xml
+Sitemap: https://tekvara-studio.onrender.com/sitemap.xml
